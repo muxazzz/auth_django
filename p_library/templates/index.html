@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<h1>Библиотека</h1><br>
+Добро пожаловать в {{ title }}.
+<br>Тут собрано {{ books|length }} книг из моей личной коллекции.
+<table  class="table">
+    <tr>
+        <th scope="col">НОМЕР</th>
+        <th scope="col">НАЗВАНИЕ КНИГИ</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">ОПИСАНИЕ</th>
+        <th scope="col">ГОД</th>
+        <th scope="col">АВТОР</th>
+        <th scope="col">КОЛИЧЕСТВО КНИГ</th>
+        <th scope="col">КОМУ ОТДАЛИ</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td><img src="/{{ book.avatar }}" width="102px" height="102px"></td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.ISBN }}</td>
+        <td>{{ book.description }}</td>
+        <td>{{ book.year_release }}</td>
+        <td>{{ book.author.full_name }}</td>
+        <td>{{ book.copy_count }}</td>
+        <td>{% if book.friend %}
+            {{ book.friend }}
+            {% else %}
+            КНИГА ДОМА
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
